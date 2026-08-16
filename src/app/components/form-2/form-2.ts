@@ -1,30 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
-
-const items: Item[] = [
-  {
-    product: 'Product 1',
-    quantity: 2,
-  },
-  {
-    product: 'Product 2',
-    quantity: 7,
-  },
-  {
-    product: 'Product 3',
-    quantity: 1,
-  },
-];
-
-interface Item {
-  product: string;
-  quantity: number;
-}
-
-interface OrderFormModel {
-  customerName: string;
-  items: Item[];
-}
+import { type OrderFormModel } from './types';
+import { initialState } from './state';
 
 @Component({
   selector: 'app-form-2',
@@ -33,10 +10,7 @@ interface OrderFormModel {
   imports: [FormRoot, FormField],
 })
 export class Form2 {
-  model = signal<OrderFormModel>({
-    customerName: '',
-    items,
-  });
+  model = signal<OrderFormModel>(initialState);
   orderForm = form(this.model);
 
   addItem() {}
