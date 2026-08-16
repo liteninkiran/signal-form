@@ -2,14 +2,14 @@
   <div>
     <label>Customer:</label>
     <input type="text" [formField]="orderForm.customerName" />
-    <button type="button" (click)="addItem()">Add</button>
   </div>
+  <button type="button" (click)="addItem()" id="add-new-btn">Add New Row</button>
   <div id="items-list">
     @for (item of orderForm.items; track item) {
       <div class="form-row">
         <input type="text" [formField]="item.product" placeholder="Product" />
         <input type="number" [formField]="item.quantity" placeholder="Quantity" />
-        <button type="button" (click)="removeItem()">Remove</button>
+        <button type="button" (click)="removeItem($index)">Remove</button>
       </div>
     }
   </div>

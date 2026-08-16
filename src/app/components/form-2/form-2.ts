@@ -13,7 +13,11 @@ export class Form2 {
   model = signal<OrderFormModel>(initialState);
   orderForm = form(this.model);
 
-  addItem() {}
+  addItem() {
+    this.orderForm.items().value.update((items) => [...items, { product: '', quantity: 1 }]);
+  }
 
-  removeItem() {}
+  removeItem(index: number) {
+    this.orderForm.items().value.update((items) => items.filter((_, i) => i !== index));
+  }
 }
