@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  > * {
+    border: 1px solid lightgray;
+    padding: 10px;
+  }
+
+  form {
+    display: flex;
+    column-gap: 10px;
+  }
+}
+
+.button-container {
+  display: flex;
+  column-gap: 10px;
+}

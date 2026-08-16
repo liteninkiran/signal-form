@@ -1,16 +1,79 @@
-<form [formRoot]="loginForm">
-  <input id="email" type="email" [formField]="loginForm.email" />
-  <input id="password" type="password" [formField]="loginForm.password" />
-  <button type="submit">Login</button>
-</form>
+<div class="container">
+  <form [formRoot]="loginForm">
+    <input id="email" type="email" placeholder="Enter email" [formField]="loginForm.email" />
 
-<h2>Form Value</h2>
-<pre>{{ loginForm().value() | json }}</pre>
+    @let email = loginForm.email();
 
-<h2>Model</h2>
-<pre>{{ model() | json }}</pre>
+    @if (email.touched() && email.invalid()) {
+      <span class="error">Email is invalid</span>
+    }
 
-<button type="button" (click)="setModel()">Set Model</button>
-<button type="button" (click)="updateModel()">Update Model</button>
-<button type="button" (click)="setFieldTree()">Set Field Tree</button>
-<button type="button" (click)="setFieldValue()">Set Field Value</button>
+    <input
+      id="password"
+      type="password"
+      placeholder="Enter password"
+      [formField]="loginForm.password"
+    />
+    <button type="submit">Login</button>
+  </form>
+
+  <div>
+    <h2>Form Value</h2>
+    <pre>{{ loginForm().value() | json }}</pre>
+
+    <h2>Model</h2>
+    <pre>{{ model() | json }}</pre>
+  </div>
+
+  <div class="button-container">
+    <button type="button" (click)="setModel()">Set Model</button>
+    <button type="button" (click)="updateModel()">Update Model</button>
+    <button type="button" (click)="setFieldTree()">Set Field Tree</button>
+    <button type="button" (click)="setFieldValue()">Set Field Value</button>
+  </div>
+
+  <div class="button-container">
+    <button type="button" (click)="loginForm.email().markAsDirty()">Mark As Dirty</button>
+    <button type="button" (click)="loginForm.email().markAsTouched()">Mark As Touched</button>
+    <button type="button" (click)="loginForm.email().reset()">Reset</button>
+    <button type="button" (click)="loginForm.email().reset('reset.new.value@example.com')">
+      Reset (with new value)
+    </button>
+    <button type="button" (click)="loginForm.email().focusBoundControl()">Focus</button>
+  </div>
+
+  <div>
+    <h2>Validation</h2>
+
+    <h3>Errors</h3>
+    <pre>{{ loginForm.email().errors() }}</pre>
+
+    <h3>Valid</h3>
+    <pre>{{ loginForm.email().valid() }}</pre>
+
+    <h3>Invalid</h3>
+    <pre>{{ loginForm.email().invalid() }}</pre>
+
+    <h3>Pending Async Validation</h3>
+    <pre>{{ loginForm.email().pending() }}</pre>
+
+    <h2>User Interaction</h2>
+
+    <h3>Touched</h3>
+    <pre>{{ loginForm.email().touched() }}</pre>
+
+    <h3>Dirty</h3>
+    <pre>{{ loginForm.email().dirty() }}</pre>
+
+    <h2>Availability</h2>
+
+    <h3>Disabled</h3>
+    <pre>{{ loginForm.email().disabled() }}</pre>
+
+    <h3>Hidden</h3>
+    <pre>{{ loginForm.email().hidden() }}</pre>
+
+    <h3>Read-only</h3>
+    <pre>{{ loginForm.email().readonly() }}</pre>
+  </div>
+</div>
