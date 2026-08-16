@@ -1,0 +1,29 @@
+<div class="container">
+  <form [formRoot]="userForm">
+    <!-- First Name -->
+    <label>First Name:</label>
+    <input type="text" [formField]="userForm.firstName" placeholder="Enter first name" />
+
+    <!-- Last Name -->
+    <label>Last Name:</label>
+    <input type="text" [formField]="userForm.lastName" placeholder="Enter last name" />
+
+    @let addr = userForm.address;
+
+    <!-- Street -->
+    <label>Street:</label>
+    <input type="text" [formField]="addr.street" placeholder="Enter street" />
+
+    <!-- City -->
+    <label>City:</label>
+    <input type="text" [formField]="addr.city" placeholder="Enter city" />
+
+    <!-- Postcode -->
+    <label>Postcode:</label>
+    <input type="text" [formField]="addr.postcode" placeholder="Enter postcode" />
+
+    <button type="submit">Login</button>
+  </form>
+
+  <button (click)="setFormValues()">Set Form Values</button>
+</div>
