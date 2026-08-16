@@ -1,1 +1,10 @@
 <h1>Signal Forms</h1>
+
+<form [formRoot]="loginForm">
+  <input id="email" type="email" [formField]="loginForm.email" />
+  <input id="password" type="password" [formField]="loginForm.password" />
+  <button type="submit">Login</button>
+</form>
+
+<pre>{{ loginForm().value() | json }}</pre>
+<pre>{{ model() | json }}</pre>
