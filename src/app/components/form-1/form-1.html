@@ -1,0 +1,16 @@
+<form [formRoot]="loginForm">
+  <input id="email" type="email" [formField]="loginForm.email" />
+  <input id="password" type="password" [formField]="loginForm.password" />
+  <button type="submit">Login</button>
+</form>
+
+<h2>Form Value</h2>
+<pre>{{ loginForm().value() | json }}</pre>
+
+<h2>Model</h2>
+<pre>{{ model() | json }}</pre>
+
+<button type="button" (click)="setModel()">Set Model</button>
+<button type="button" (click)="updateModel()">Update Model</button>
+<button type="button" (click)="setFieldTree()">Set Field Tree</button>
+<button type="button" (click)="setFieldValue()">Set Field Value</button>
