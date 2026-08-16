@@ -1,7 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
-import { type OrderFormModel } from './types';
+import { Item, type OrderFormModel } from './types';
 import { initialState } from './state';
+
+const defaultItem: Item = { product: '', quantity: 1 };
+const addFn = (items: Item[]) => [...items, defaultItem];
+const removeFn = (index: number) => (items: Item[]) => items.filter((_, i) => i !== index);
 
 @Component({
   selector: 'app-form-2',
@@ -14,10 +18,10 @@ export class Form2 {
   orderForm = form(this.model);
 
   addItem() {
-    this.orderForm.items().value.update((items) => [...items, { product: '', quantity: 1 }]);
+    this.orderForm.items().value.update(addFn);
   }
 
   removeItem(index: number) {
-    this.orderForm.items().value.update((items) => items.filter((_, i) => i !== index));
+    this.orderForm.items().value.update(removeFn(index));
   }
 }
