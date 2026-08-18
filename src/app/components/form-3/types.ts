@@ -10,3 +10,9 @@ export interface UserFormModel {
   address: Address;
   cc: string;
 }
+
+export interface UserInfo {
+  firstName: string;
+  lastName: string;
+  address: Address;
+}

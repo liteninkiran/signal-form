@@ -22,7 +22,11 @@
     <label>Postcode:</label>
     <input type="text" [formField]="addr.postcode" placeholder="Enter postcode" />
 
-    <button type="submit">Login</button>
+    @if (userForm().submitting()) {
+      <button type="submit" disabled>Submitting...</button>
+    } @else {
+      <button type="submit">Login</button>
+    }
   </form>
 
   <button (click)="setFormValues()">Set Form Values</button>
