@@ -7,6 +7,7 @@ export const initialState: UserFormModel = {
     street: '',
     city: '',
     postcode: '',
+    country: '',
   },
   cc: '',
 };
