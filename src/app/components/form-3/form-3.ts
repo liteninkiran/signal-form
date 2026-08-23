@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FieldTree, form, FormField, FormRoot } from '@angular/forms/signals';
+import { FieldTree, form, FormField, submit } from '@angular/forms/signals';
 import { UserFormModel } from './types';
 import { initialState } from './state';
 import { UserService } from './user-service';
@@ -22,7 +21,7 @@ const error = {
   selector: 'app-form-3',
   templateUrl: './form-3.html',
   styleUrl: './form-3.scss',
-  imports: [FormRoot, FormField, CommonModule],
+  imports: [FormField],
 })
 export class Form3 {
   readonly userService = inject(UserService);
@@ -35,8 +34,7 @@ export class Form3 {
     }
     return undefined;
   };
-  readonly #options = { submission: { action: this.#action } };
-  readonly userForm = form(this.model, this.#options);
+  readonly userForm = form(this.model);
 
   setFormValues() {
     this.userForm().value.set({
@@ -53,5 +51,15 @@ export class Form3 {
 
     // const isStreetValid = this.userForm.address.street().valid();
     // const isAddressValid = this.userForm.address().valid();
+  }
+
+  async onSave() {
+    const success = await submit(this.userForm, this.#action);
+
+    console.log(success);
+
+    if (success) {
+      alert('Form saved');
+    }
   }
 }

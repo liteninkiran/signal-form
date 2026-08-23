@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formRoot]="userForm">
+  <form (submit)="$event.preventDefault(); onSave()">
     <!-- First Name -->
     <label>First Name:</label>
     <input type="text" [formField]="userForm.firstName" placeholder="Enter first name" />
