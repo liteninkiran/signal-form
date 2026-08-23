@@ -1,5 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
-import { FieldTree, form, FormField, submit } from '@angular/forms/signals';
+import {
+  FieldTree,
+  form,
+  FormField,
+  maxLength,
+  minLength,
+  PathKind,
+  required,
+  SchemaPathTree,
+  submit,
+} from '@angular/forms/signals';
 import { UserFormModel } from './types';
 import { initialState } from './state';
 import { UserService } from './user-service';
@@ -15,6 +25,26 @@ const userInfoMap = (user: UserFormModel) => ({
 const error = {
   kind: 'serverError',
   message: 'Could not save your information. Please try again.',
+};
+
+const formValue: UserFormModel = {
+  firstName: 'David',
+  lastName: 'Jones',
+  address: {
+    street: '5 The Street',
+    city: 'Manchester',
+    postcode: 'M5 6HL',
+    country: 'UK',
+  },
+  cc: '',
+};
+
+const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
+  required(path.firstName, { message: 'First name is required' });
+  required(path.address.postcode);
+  required(path.cc, { message: 'Credit card number is required' });
+  minLength(path.cc, 16, { message: 'Credit card number must have 16 digits' });
+  maxLength(path.cc, 16, { message: 'Credit card number must be less than 17 digits' });
 };
 
 @Component({
@@ -34,23 +64,11 @@ export class Form3 {
     }
     return undefined;
   };
-  readonly userForm = form(this.model);
+  readonly userForm = form(this.model, validation);
 
   setFormValues() {
-    this.userForm().value.set({
-      firstName: 'David',
-      lastName: 'Jones',
-      address: {
-        street: '5 The Street',
-        city: 'Manchester',
-        postcode: 'M5 6HL',
-      },
-      cc: '',
-    });
+    this.userForm().value.set(formValue);
     this.userForm.address.city().value.set('Kansas');
-
-    // const isStreetValid = this.userForm.address.street().valid();
-    // const isAddressValid = this.userForm.address().valid();
   }
 
   async onSave() {
