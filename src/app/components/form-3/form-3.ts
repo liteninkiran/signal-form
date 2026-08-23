@@ -37,7 +37,7 @@ const formValue: UserFormModel = {
     postcode: 'M5 6HL',
     country: 'UK',
   },
-  cc: '',
+  cc: '0123456789abcdef',
 };
 
 const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
@@ -74,6 +74,14 @@ export class Form3 {
   }
 
   async onSave() {
+    this.markAllAsTouched();
+    this.markAllAsDirty();
+
+    if (this.userForm().invalid()) {
+      alert('Form invalid');
+      return;
+    }
+
     const success = await submit(this.userForm, this.#action);
 
     console.log(success);
@@ -81,5 +89,23 @@ export class Form3 {
     if (success) {
       alert('Form saved');
     }
+  }
+
+  markAllAsTouched() {
+    this.userForm.firstName().markAsTouched();
+    this.userForm.lastName().markAsTouched();
+    this.userForm.address.street().markAsTouched();
+    this.userForm.address.city().markAsTouched();
+    this.userForm.address.postcode().markAsTouched();
+    this.userForm.cc().markAsTouched();
+  }
+
+  markAllAsDirty() {
+    this.userForm.firstName().markAsDirty();
+    this.userForm.lastName().markAsDirty();
+    this.userForm.address.street().markAsDirty();
+    this.userForm.address.city().markAsDirty();
+    this.userForm.address.postcode().markAsDirty();
+    this.userForm.cc().markAsDirty();
   }
 }

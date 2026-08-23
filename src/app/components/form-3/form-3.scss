@@ -32,3 +32,11 @@
     }
   }
 }
+
+input[type='text'].ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+
+input[type='text'].ng-valid {
+  border: 1px solid green;
+}

@@ -1,27 +1,35 @@
 <div class="container">
-  <form (submit)="$event.preventDefault(); onSave()">
+  <form novalidate (submit)="$event.preventDefault(); onSave()">
     <!-- First Name -->
     <div class="form-field">
       <label>First Name:</label>
       <input type="text" [formField]="userForm.firstName" placeholder="Enter first name" />
-      <div class="alert">
-        @let firstNameErrors = userForm.firstName().errors();
-        @for (error of firstNameErrors; track error) {
-          <p>{{ error.message }}</p>
-        }
-      </div>
+      @let firstName = userForm.firstName();
+      @let firstNameErrors = firstName.errors();
+
+      @if (firstName.dirty() && firstName.touched()) {
+        <div class="alert">
+          @for (error of firstNameErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     <!-- Last Name -->
     <div class="form-field">
       <label>Last Name:</label>
       <input type="text" [formField]="userForm.lastName" placeholder="Enter last name" />
-      <div class="alert">
-        @let lastNameErrors = userForm.lastName().errors();
-        @for (error of lastNameErrors; track error) {
-          <p>{{ error.message }}</p>
-        }
-      </div>
+      @let lastName = userForm.lastName();
+      @let lastNameErrors = lastName.errors();
+
+      @if (lastName.dirty() && lastName.touched()) {
+        <div class="alert">
+          @for (error of lastNameErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     @let addr = userForm.address;
@@ -48,18 +56,22 @@
     <div class="form-field">
       <label>Credit Card:</label>
       <input type="text" [formField]="userForm.cc" placeholder="Enter credit card" />
-      <div class="alert">
-        @let ccErrors = userForm.cc().errors();
-        @for (error of ccErrors; track error) {
-          <p>{{ error.message }}</p>
-        }
-      </div>
+      @let cc = userForm.cc();
+      @let ccErrors = cc.errors();
+
+      @if (cc.dirty() && cc.touched()) {
+        <div class="alert">
+          @for (error of ccErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     @if (userForm().submitting()) {
       <button type="submit" disabled>Submitting...</button>
     } @else {
-      <button type="submit">Save</button>
+      <button type="submit" [disabled]="userForm().invalid()">Save</button>
     }
   </form>
 
