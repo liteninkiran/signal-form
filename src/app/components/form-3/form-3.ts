@@ -15,6 +15,8 @@ import { initialState } from './state';
 import { UserService } from './user-service';
 import { CommonModule } from '@angular/common';
 
+type MarkAs = 'touched' | 'dirty';
+
 type Field = FieldTree<UserFormModel, string | number, 'writable'>;
 
 const userInfoMap = (user: UserFormModel) => ({
@@ -74,11 +76,10 @@ export class Form3 {
   }
 
   async onSave() {
-    this.markAllAsTouched();
-    this.markAllAsDirty();
+    this.markAll(this.userForm, 'touched');
+    this.markAll(this.userForm, 'dirty');
 
     if (this.userForm().invalid()) {
-      alert('Form invalid');
       return;
     }
 
@@ -91,21 +92,20 @@ export class Form3 {
     }
   }
 
-  markAllAsTouched() {
-    this.userForm.firstName().markAsTouched();
-    this.userForm.lastName().markAsTouched();
-    this.userForm.address.street().markAsTouched();
-    this.userForm.address.city().markAsTouched();
-    this.userForm.address.postcode().markAsTouched();
-    this.userForm.cc().markAsTouched();
-  }
+  markAll(fieldTree: any, state: MarkAs) {
+    const field = fieldTree();
 
-  markAllAsDirty() {
-    this.userForm.firstName().markAsDirty();
-    this.userForm.lastName().markAsDirty();
-    this.userForm.address.street().markAsDirty();
-    this.userForm.address.city().markAsDirty();
-    this.userForm.address.postcode().markAsDirty();
-    this.userForm.cc().markAsDirty();
+    if (state === 'dirty') field.markAsDirty();
+    if (state === 'touched') field.markAsTouched();
+
+    for (const key of Object.keys(fieldTree)) {
+      if (key === 'value') continue;
+
+      const child = fieldTree[key];
+
+      if (typeof child === 'function') {
+        this.markAll(child, state);
+      }
+    }
   }
 }
