@@ -13,6 +13,7 @@ import {
 import { UserFormModel } from './types';
 import { initialState } from './state';
 import { UserService } from './user-service';
+import { CommonModule } from '@angular/common';
 
 type Field = FieldTree<UserFormModel, string | number, 'writable'>;
 
@@ -41,6 +42,7 @@ const formValue: UserFormModel = {
 
 const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   required(path.firstName, { message: 'First name is required' });
+  required(path.lastName, { message: 'Last name is required' });
   required(path.address.postcode);
   required(path.cc, { message: 'Credit card number is required' });
   minLength(path.cc, 16, { message: 'Credit card number must have 16 digits' });
@@ -51,7 +53,7 @@ const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   selector: 'app-form-3',
   templateUrl: './form-3.html',
   styleUrl: './form-3.scss',
-  imports: [FormField],
+  imports: [FormField, CommonModule],
 })
 export class Form3 {
   readonly userService = inject(UserService);

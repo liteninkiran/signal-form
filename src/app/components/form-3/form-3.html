@@ -1,31 +1,65 @@
 <div class="container">
   <form (submit)="$event.preventDefault(); onSave()">
     <!-- First Name -->
-    <label>First Name:</label>
-    <input type="text" [formField]="userForm.firstName" placeholder="Enter first name" />
+    <div class="form-field">
+      <label>First Name:</label>
+      <input type="text" [formField]="userForm.firstName" placeholder="Enter first name" />
+      <div class="alert">
+        @let firstNameErrors = userForm.firstName().errors();
+        @for (error of firstNameErrors; track error) {
+          <p>{{ error.message }}</p>
+        }
+      </div>
+    </div>
 
     <!-- Last Name -->
-    <label>Last Name:</label>
-    <input type="text" [formField]="userForm.lastName" placeholder="Enter last name" />
+    <div class="form-field">
+      <label>Last Name:</label>
+      <input type="text" [formField]="userForm.lastName" placeholder="Enter last name" />
+      <div class="alert">
+        @let lastNameErrors = userForm.lastName().errors();
+        @for (error of lastNameErrors; track error) {
+          <p>{{ error.message }}</p>
+        }
+      </div>
+    </div>
 
     @let addr = userForm.address;
 
     <!-- Street -->
-    <label>Street:</label>
-    <input type="text" [formField]="addr.street" placeholder="Enter street" />
+    <div class="form-field">
+      <label>Street:</label>
+      <input type="text" [formField]="addr.street" placeholder="Enter street" />
+    </div>
 
     <!-- City -->
-    <label>City:</label>
-    <input type="text" [formField]="addr.city" placeholder="Enter city" />
+    <div class="form-field">
+      <label>City:</label>
+      <input type="text" [formField]="addr.city" placeholder="Enter city" />
+    </div>
 
     <!-- Postcode -->
-    <label>Postcode:</label>
-    <input type="text" [formField]="addr.postcode" placeholder="Enter postcode" />
+    <div class="form-field">
+      <label>Postcode:</label>
+      <input type="text" [formField]="addr.postcode" placeholder="Enter postcode" />
+    </div>
+
+    <!-- Credit Card -->
+    <div class="form-field">
+      <label>Credit Card:</label>
+      <input type="text" [formField]="userForm.cc" placeholder="Enter credit card" />
+      <div class="alert">
+        @let ccErrors = userForm.cc().errors();
+        @for (error of ccErrors; track error) {
+          <p>{{ error.message }}</p>
+        }
+      </div>
+    </div>
 
     @if (userForm().submitting()) {
       <button type="submit" disabled>Submitting...</button>
     } @else {
-      <button type="submit">Login</button>
+      <button type="submit">Save</button>
     }
   </form>
 
