@@ -1,3 +1,10 @@
+import {
+  ChildFieldContext,
+  FieldTree,
+  ItemFieldContext,
+  RootFieldContext,
+} from '@angular/forms/signals';
+
 export interface Address {
   street: string;
   city: string;
@@ -17,3 +24,9 @@ export interface UserInfo {
   lastName: string;
   address: Address;
 }
+
+export type MarkAs = 'touched' | 'dirty';
+
+export type Field = FieldTree<UserFormModel, string | number, 'writable'>;
+
+export type CTX = ItemFieldContext<string> | ChildFieldContext<string> | RootFieldContext<string>;
