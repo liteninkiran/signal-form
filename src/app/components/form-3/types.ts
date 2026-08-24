@@ -35,3 +35,7 @@ export type Field = FieldTree<UserFormModel, string | number, 'writable'>;
 export type CTX = ItemFieldContext<string> | ChildFieldContext<string> | RootFieldContext<string>;
 
 export type FieldPath = SchemaPath<string, any, any>;
+
+export type Props = {
+  valueOf: <PValue>(p: SchemaPath<PValue, SchemaPathRules, PathKind.Root>) => PValue;
+};

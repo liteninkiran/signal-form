@@ -11,7 +11,7 @@ export const formValue: UserFormModel = {
   address: {
     street: '5 The Street',
     city: 'Manchester',
-    postcode: 'M5 6HL',
+    postcode: 'M14 6HL',
     country: 'UK',
   },
   cc: '0123456789abcdef',
