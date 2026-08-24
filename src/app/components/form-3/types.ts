@@ -2,7 +2,10 @@ import {
   ChildFieldContext,
   FieldTree,
   ItemFieldContext,
+  PathKind,
   RootFieldContext,
+  SchemaPath,
+  SchemaPathRules,
 } from '@angular/forms/signals';
 
 export interface Address {
@@ -30,3 +33,5 @@ export type MarkAs = 'touched' | 'dirty';
 export type Field = FieldTree<UserFormModel, string | number, 'writable'>;
 
 export type CTX = ItemFieldContext<string> | ChildFieldContext<string> | RootFieldContext<string>;
+
+export type FieldPath = SchemaPath<string, any, any>;

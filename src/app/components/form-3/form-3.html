@@ -62,6 +62,22 @@
       }
     </div>
 
+    <!-- Country -->
+    <div class="form-field">
+      <label>Country:</label>
+      <input type="text" [formField]="addr.country" placeholder="Enter country" />
+      @let country = userForm.address.country();
+      @let countryErrors = country.errors();
+
+      @if (country.dirty() && country.touched()) {
+        <div class="alert">
+          @for (error of countryErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
     <!-- Credit Card -->
     <div class="form-field">
       <label>Credit Card:</label>

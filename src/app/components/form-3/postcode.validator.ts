@@ -1,6 +1,6 @@
 import { required, pattern, validateHttp, SchemaPath } from '@angular/forms/signals';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CTX } from './types';
+import { CTX, FieldPath } from './types';
 import { postcodePattern } from './data';
 
 const request = (ctx: CTX) => {
@@ -37,8 +37,11 @@ const options = {
 /**
  * Registers UK postcode validation rules on the specified postcode path.
  */
-export function validatePostcode(field: SchemaPath<string, any, any>): void {
-  required(field, { message: 'Postcode is required' });
-  pattern(field, postcodePattern, { message: 'Please enter a valid UK postcode' });
-  validateHttp(field, options);
+export function validatePostcode(postcodePath: FieldPath, countryPath: FieldPath): void {
+  required(postcodePath, { message: 'Postcode is required' });
+  pattern(postcodePath, postcodePattern, {
+    message: 'Please enter a valid UK postcode',
+    when: ({ valueOf }) => valueOf(countryPath) === 'UK',
+  });
+  validateHttp(postcodePath, { ...options, when: ({ valueOf }) => valueOf(countryPath) === 'UK' });
 }

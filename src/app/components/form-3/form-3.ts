@@ -24,7 +24,8 @@ const userInfoMap = (user: UserFormModel) => ({
 const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   required(path.firstName, { message: 'First name is required' });
   required(path.lastName, { message: 'Last name is required' });
-  validatePostcode(path.address.postcode);
+  required(path.address.country, { message: 'Country is required' });
+  validatePostcode(path.address.postcode, path.address.country);
   validateCreditCard(path.cc);
 };
 
