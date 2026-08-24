@@ -6,6 +6,7 @@ import {
   maxLength,
   minLength,
   PathKind,
+  pattern,
   required,
   SchemaPathTree,
   submit,
@@ -49,6 +50,9 @@ const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   required(path.cc, { message: 'Credit card number is required' });
   minLength(path.cc, 16, { message: 'Credit card number must have 16 digits' });
   maxLength(path.cc, 16, { message: 'Credit card number must be less than 17 digits' });
+  pattern(path.address.postcode, /^[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}$/i, {
+    message: 'Please enter a valid UK postcode',
+  });
 };
 
 @Component({

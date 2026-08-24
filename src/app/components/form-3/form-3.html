@@ -50,6 +50,16 @@
     <div class="form-field">
       <label>Postcode:</label>
       <input type="text" [formField]="addr.postcode" placeholder="Enter postcode" />
+      @let postcode = userForm.address.postcode();
+      @let postcodeErrors = postcode.errors();
+
+      @if (postcode.dirty() && postcode.touched()) {
+        <div class="alert">
+          @for (error of postcodeErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     <!-- Credit Card -->
