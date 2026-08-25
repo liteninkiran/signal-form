@@ -7,6 +7,6 @@ import { Form3 } from './components/form-3/form-3';
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [Form3],
+  imports: [Form2],
 })
 export class App {}

@@ -1,16 +1,41 @@
 <form [formRoot]="orderForm">
   <div>
     <label>Customer:</label>
-    <input type="text" [formField]="orderForm.customerName" />
+    <div class="form-input">
+      <input type="text" [formField]="orderForm.customerName" />
+      @if (orderForm.customerName().touched() && orderForm.customerName().invalid()) {
+        <span class="error">{{ orderForm.customerName().errors()[0].message }}</span>
+      }
+    </div>
   </div>
   <button type="button" (click)="addItem()" id="add-new-btn">Add New Row</button>
   <div id="items-list">
     @for (item of orderForm.items; track item) {
       <div class="form-row">
-        <input type="text" [formField]="item.product" placeholder="Product" />
-        <input type="number" [formField]="item.quantity" placeholder="Quantity" />
-        <button type="button" (click)="removeItem($index)">Remove</button>
+        <div class="form-input">
+          <input type="text" [formField]="item.product" placeholder="Product" />
+          @if (item.product().touched() && item.product().invalid()) {
+            <span class="error">{{ item.product().errors()[0].message }}</span>
+          }
+        </div>
+        <div class="form-input">
+          <input type="number" [formField]="item.quantity" placeholder="Quantity" />
+          @if (item.quantity().touched() && item.quantity().invalid()) {
+            <span class="error">{{ item.quantity().errors()[0].message }}</span>
+          }
+        </div>
+        <div class="form-input">
+          <button type="button" (click)="removeItem($index)">Remove</button>
+        </div>
       </div>
     }
   </div>
+  @if (orderForm().submitting()) {
+    <button type="submit" disabled>Submitting...</button>
+  } @else {
+    <button type="submit">Save</button>
+  }
 </form>
+<p>Invalid: {{ orderForm().invalid() }}</p>
+<p>Touched: {{ orderForm().touched() }}</p>
+<p>Submitting: {{ orderForm().submitting() }}</p>
