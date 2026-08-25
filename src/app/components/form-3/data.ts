@@ -15,6 +15,7 @@ export const formValue: UserFormModel = {
     country: 'UK',
   },
   cc: '0123456789abcdef',
+  rating: 3,
 };
 
 export const postcodePattern =

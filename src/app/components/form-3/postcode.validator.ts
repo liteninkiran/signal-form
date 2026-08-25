@@ -1,4 +1,4 @@
-import { required, pattern, validateHttp, SchemaPath } from '@angular/forms/signals';
+import { pattern, validateHttp } from '@angular/forms/signals';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CTX, FieldPath, Props } from './types';
 import { postcodePattern } from './data';

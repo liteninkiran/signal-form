@@ -11,6 +11,7 @@ export class UserService {
     // const url = '/api/users';
     // const post = () => this.http.post(url, userInfo);
     // const obs$ = timer(2000).pipe(switchMap(post));
+    console.log(userInfo);
     const obs$ = timer(2000).pipe(switchMap(() => of(true)));
     return firstValueFrom(obs$);
   }

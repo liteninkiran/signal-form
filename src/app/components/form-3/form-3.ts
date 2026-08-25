@@ -16,12 +16,10 @@ import { validatePostcode } from './postcode.validator';
 import { validateCreditCard } from './creditCard.validator';
 import { error, formValue } from './data';
 import { addressSchema } from './address.schema';
+import { StarRating } from '../star-rating/star-rating';
+import { ratingSchema } from '../star-rating/rating.schema';
 
-const userInfoMap = (user: UserFormModel) => ({
-  address: user.address,
-  firstName: user.firstName,
-  lastName: user.lastName,
-});
+const userInfoMap = (user: UserFormModel) => ({ ...user });
 
 const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   required(path.firstName, { message: 'First name is required' });
@@ -29,13 +27,14 @@ const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   apply(path.address, addressSchema);
   validatePostcode(path.address.postcode, path.address.country);
   validateCreditCard(path.cc);
+  apply(path.rating, ratingSchema);
 };
 
 @Component({
   selector: 'app-form-3',
   templateUrl: './form-3.html',
   styleUrl: './form-3.scss',
-  imports: [FormField, CommonModule],
+  imports: [StarRating, FormField, CommonModule],
 })
 export class Form3 {
   readonly userService = inject(UserService);

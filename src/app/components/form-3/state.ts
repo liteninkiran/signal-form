@@ -10,4 +10,5 @@ export const initialState: UserFormModel = {
     country: '',
   },
   cc: '',
+  rating: 0,
 };

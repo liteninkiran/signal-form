@@ -20,6 +20,7 @@ export interface UserFormModel {
   lastName: string;
   address: Address;
   cc: string;
+  rating: number;
 }
 
 export interface UserInfo {
