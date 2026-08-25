@@ -38,12 +38,32 @@
     <div class="form-field">
       <label>Street:</label>
       <input type="text" [formField]="addr.street" placeholder="Enter street" />
+      @let street = userForm.address.street();
+      @let streetErrors = street.errors();
+
+      @if (street.dirty() && street.touched()) {
+        <div class="alert">
+          @for (error of streetErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     <!-- City -->
     <div class="form-field">
       <label>City:</label>
       <input type="text" [formField]="addr.city" placeholder="Enter city" />
+      @let city = userForm.address.city();
+      @let cityErrors = city.errors();
+
+      @if (city.dirty() && city.touched()) {
+        <div class="alert">
+          @for (error of cityErrors; track error) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
     </div>
 
     <!-- Postcode -->

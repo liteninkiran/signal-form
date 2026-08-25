@@ -39,7 +39,6 @@ const options = {
  */
 export function validatePostcode(postcodePath: FieldPath, countryPath: FieldPath): void {
   const when = ({ valueOf }: Props) => valueOf(countryPath) === 'UK';
-  required(postcodePath, { message: 'Postcode is required' });
   pattern(postcodePath, postcodePattern, { message: 'Please enter a valid UK postcode', when });
   validateHttp(postcodePath, { ...options, when });
 }

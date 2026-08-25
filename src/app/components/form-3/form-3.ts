@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import {
+  apply,
   form,
   FormField,
   PathKind,
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { validatePostcode } from './postcode.validator';
 import { validateCreditCard } from './creditCard.validator';
 import { error, formValue } from './data';
+import { addressSchema } from './address.schema';
 
 const userInfoMap = (user: UserFormModel) => ({
   address: user.address,
@@ -24,7 +26,7 @@ const userInfoMap = (user: UserFormModel) => ({
 const validation = (path: SchemaPathTree<UserFormModel, PathKind.Root>) => {
   required(path.firstName, { message: 'First name is required' });
   required(path.lastName, { message: 'Last name is required' });
-  required(path.address.country, { message: 'Country is required' });
+  apply(path.address, addressSchema);
   validatePostcode(path.address.postcode, path.address.country);
   validateCreditCard(path.cc);
 };
